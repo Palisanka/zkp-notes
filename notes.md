@@ -47,3 +47,25 @@ Ressource :
 ![Untitled](./notes-ressources/Untitled.png)
 
 **Group theory**
+
+## Day 1
+
+---
+
+### Homework 1
+
+S = {0,1,2,3,4,5,6}
+
+- 4+4 = 8
+- 3 x 5 = 15
+- inverse of 3 : ~~-3~~ → 1/3
+- Can we consider ‘S’ and operation ‘+’ to be a group ?
+- what’s -13 mod 5 ? 2 or -3 (2≡−3(mod5) ) but the remainder should be positive.
+- for :
+
+$$
+x^3-x^2+4x-12
+$$
+
+- positive root ? : 2
+- the degree of this polynomial ? : 3
