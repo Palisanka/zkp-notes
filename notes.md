@@ -69,3 +69,21 @@ $$
 
 - positive root ? : 2
 - the degree of this polynomial ? : 3
+
+### Homework 2
+
+1. You just need to find examples, not proving:
+    - is it true that all odd squares are identical to 1 (mod8) ?
+        - odd square : (1^2, 3^2, 5^2…. ) → **YES**
+    - what about even squares (mod8) → equal (0 or 4)
+2. Try out the vanity btc address example at esecurity
+
+   → it allow to have custom addresses (like : 0xc0ffee254729296a45a3… )
+
+3. what do you understand by :
+    1. O(n) → the computation time depends on the length of the input (linear)
+    2. O(1) → the computation time is 1, it doesn’t depend on the length of the input and is always the same (constant = ideal case)
+    3. O(logn) → better than O(n) but worse than O(1), good for sorting algorithms
+
+   → we want O(1) ideally but O(logn) is ok too
+    
