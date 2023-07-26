@@ -154,3 +154,30 @@ The group Zp* with operations addition and multiplication allows this
 ![Untitled](./notes-ressources/Untitled%202.png)
 
 ![Untitled](./notes-ressources/Untitled%203.png)
+
+### Homework 3
+
+**1 - Follow this [tutorial](https://zokrates.github.io/examples/sha256example.html) to prove that you know the pre image of a hash**
+
+```java
+import "hashes/sha256/512bitPacked" as sha256packed;
+
+def main(private field a, private field b, private field c, private field d) {
+    field[2] h = sha256packed([a, b, c, d]);
+    assert(h[0] == 263561599766550617289250058199814760685);
+    assert(h[1] == 65303172752238645975888084098459749904);
+    return;
+}
+```
+
+here, the hash pre image is 5 and we assert that a prover knows it without revealing it
+
+**In principle, how could you use Zokrates to verify that an eth adress has more than 1 eth ?**
+
+- get the balance of an eth address
+- use a check code like this one :
+
+```java
+def main(private field a) -> bool:
+  return a > 1
+```
