@@ -86,4 +86,71 @@ $$
     3. O(logn) → better than O(n) but worse than O(1), good for sorting algorithms
 
    → we want O(1) ideally but O(logn) is ok too
-    
+
+## Day 2-3
+
+---
+
+- the prover Peggy takes a proving key `pk`, a public input `x` and a private witness `w`
+- Peggy generates a proof
+- the verifier Victor computes `V(vk, x, pr)` (returns the proof is correct and false if not)
+
+The function returns true if Peggy knows a witness `w` satisfying `c(x,w) = true`
+
+**Trusted setups and toxic waste**
+
+- if a prover discover the secret lambda (the secret parameter = toxic waste), then he can create fake proofs
+- how to not leak it ? → by doing a trusted setup (tau ceremony), they split the parameter in few persons and if only one person is honest and destroy his own toxic waste then we cannot recreate the parameter
+
+**Polynomials in ZKPs**
+
+If a prover claims to know some polynomial, that the verifier also knows, they can :
+
+- verifier chooses a random value for x and evaluates his polynomial locally
+- verifier gives x to the prover and asks to evaluate the polynomial in question
+- prover evaluates her polynomial at x and gives the result to the verifier
+- verifier checks if the local resylt is eqyal to the prover’s result, and if so then the statement is proven with a high confidence
+
+In general there is a rule that if the local result is equal to the prover’s result, and if so the the statement is proven with high confidence
+
+in general, the is a rule that if a poly P is zero accross a Set then it can be expressed as : P(x) = ….. another polynomial
+
+**Homomorphic Hiding**
+
+if E(x) is a fct with the props :
+
+- given E(x) it’s hard to find x
+- different inputs lead to different outputs (if x≠y then E(x)≠E(y))
+- we can compute E(x+y)
+
+The group Zp* with operations addition and multiplication allows this
+
+**Example** : Alice wants to prove to Bob she knows x,y such that x+y=7
+
+1. Alice sends E(x) and E(y)
+2. Bob computes E(x+y) (possible because E is HH)
+3. Bob computes E(7) and checks E(x+y) = E(7), if true then accepted
+
+<aside>
+➡️ need to check how bob can computes E(x+y) with on E(x) and E(y)
+
+</aside>
+
+**Zero knowledge proof theory part 1 - zkSNARKS**
+
+- zkSNARKS are most common (zCash)
+- process :
+    - three algorithms C,P,V
+    - Creator takes a secret parameter lambda and program C, and generates 2 publicly available keys (generated once for a program ***C***), also called **Common Reference String** :
+        - proving key ***pk***
+        - a verification ley : ***vk***
+
+**ZoKrates - a toolbox for Ethereum**
+
+→ presentation with a basic example (by computing, setup, generating a proof and exporting a smart contract)
+
+![Untitled](./notes-ressources/Untitled%201.png)
+
+![Untitled](./notes-ressources/Untitled%202.png)
+
+![Untitled](./notes-ressources/Untitled%203.png)
