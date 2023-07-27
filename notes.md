@@ -181,3 +181,55 @@ here, the hash pre image is 5 and we assert that a prover knows it without revea
 def main(private field a) -> bool:
   return a > 1
 ```
+
+## Day 4
+
+---
+
+Usage :
+
+- Dark forest : game using zkp
+- Zk microphone (ethglobal Paris)
+- KYC
+- …
+
+Also, showcase of the funding & the starknet [ecosystem](https://www.starknet-ecosystem.com/)
+
+![Untitled](./notes-ressources/Untitled%204.png)
+
+ps : the sequencer may be centralized (to be validated)
+
+- The Cairo language (rust like) is used for smart contract (like solidity). His syntax changed a lot recently.
+- Sierra is bytecode
+- process : cairo smart contract → sierra → cairo assembly → proof
+
+Cairo’s statistics : [voyager.online](https://voyager.online/)
+
+### **Intro to Rust**
+
+**Core features**
+
+- memory safety without garbage collection
+- concurrecy without data races
+- Abstraction without overhead
+
+**variables**
+
+- immutables by default
+- but can be overriden using the `mut` modifier
+
+```rust
+let x = 1;
+let mut y = 1;
+```
+
+**Types**
+
+see documentation : [data-types](https://doc.rust-lang.org/book/ch03-02-data-types.html)
+
+**scalar types**
+
+- int : `u8, i32, u64`
+- floating point numbers (`f32` (bits) and `f64` (bits))
+- booleans (size : 1 bit)
+- characters (unique integral)
