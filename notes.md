@@ -233,3 +233,243 @@ see documentation : [data-types](https://doc.rust-lang.org/book/ch03-02-data-typ
 - floating point numbers (`f32` (bits) and `f64` (bits))
 - booleans (size : 1 bit)
 - characters (unique integral)
+
+
+## Day 5 (week 2)
+
+---
+
+starknet Architecture
+
+![Untitled](./notes-ressources/Untitled%205.png)
+
+![Untitled](./notes-ressources/Untitled%206.png)
+
+### Transaction status
+
+- NOT_RECEIVED
+- RECEIVED
+- ACCEPTED_ON_L2
+- ACCEPTED_ON_L1
+- REJECTED
+
+### Transaction structure
+
+![Untitled](./notes-ressources/Untitled%207.png)
+
+### Full nodes
+
+- keep record of all transaction (have more information)
+
+### recursive starks
+
+- bundle multiple transaction
+
+### Rust
+
+- idiomatic Rust
+- Memory heap and stack
+    - need to clean up memory : the compiler need to remove things from memory, needs to enforce certain rules
+
+    ```rust
+    let mut my_vec = vec![1,2,3];
+    ```
+
+  `my_vec` owns the vector, we want to avoid :
+
+    - if out of scope, the value points to nothing (or a false)
+    - if out of scope, not cleaned up
+
+### **Rust ownership rules**
+
+…
+
+### **Copying**
+
+…
+
+### **Move**
+
+…
+
+```rust
+let a = vec![1,2,3];
+let b = a;
+let c = a;   // <= PROBLEM HERE
+// -> a don't have ownership
+```
+
+### **Control flow**
+
+```rust
+let a = vec![1,2,3];
+while f() {
+	g(a) // a lost ownership after 1st iteration
+}
+fn g(x: u8) {
+...
+}
+```
+
+### **References**
+
+- `&a`
+- if `a` has type `T`, then `&a` has type `&T`
+
+`&` represent *references :* allow to refer to some value without taking ownership (don’t steal/drop the ownership)
+
+### **2 types of references**
+
+- ***shared*** reference : `&a`
+    - read but not mutate the referent
+    - can have any shared references
+    - shared ref are copies
+- ***mutable*** reference : `&mut`
+    - can read and **modify** the referent
+    - **only one mutable reference** at a time
+    - (no ownership so don’t dictate when the value gonna be drop)
+
+### **De referecing**
+
+`*` operator
+
+### **String Data types**
+
+### Traits
+
+Declared with the `trait` keyword
+
+- similar to interface in other languages (allow pollymorphisme)
+
+```rust
+pub trait Summary {
+		fn summarize(&self) -> String;
+}
+```
+
+```rust
+	pub struct Tweet {
+	pub username : String,
+}
+
+impl Summary for Tweet {
+	fn summarize(&selft) -> String {
+		format!("{}: {}", self.username, self.content)
+	}
+}
+```
+
+**Using traits (polymorphism)**
+
+```rust
+pub fn notify(item: &impl Summary) {
+	println!(”Breaking news {}”,  item.summarize());
+}
+```
+
+### Intro to generics
+
+allow to parametize accross datatypes, not only one datatype but allow “generic” types
+
+```rust
+struct Point<T> {
+	x: T,
+	y: T,
+}
+
+fn main() {
+	let my_point = Point { x: 5, y: 6};
+}
+```
+
+### Intro to vectors
+
+```rust
+let vect: Vec<i32> = Vec::new();
+let v = vec![41, 42, 7]; // the compiler auto determine the type
+
+// retrieve
+v.get(1);
+
+// iterate
+for ii in &v {
+	println!("{}", ii);
+}
+
+// iterate using iterators
+let v1 = vec![1, 2, 3];
+let mut v1_iter = v1.iter();
+assert_eq!(v1_iter.next(), Some(&1));
+assert_eq!(v1_iter.next(), Some(&2));
+assert_eq!(v1_iter.next(), Some(&3));
+assert_eq!(v1_iter.next(), None);
+// here we use '&' for '&1' because we want to bring back Some of a ref
+```
+
+→ not understood why we are using the & here…)
+
+→ *No, We are taking a reference, into_iter() will take ownership*
+
+Notes : the '!' symbol in `let v = vec![1,2,3]`  : is a macro which means that vec is not a function call but a macro invocation that constructs a vector.
+
+### shadowing
+
+```rust
+??
+```
+
+### Cairo
+
+similar to rust but they are some differences
+
+```rust
+**// loops**
+use PrintTrait;
+fn main() {
+ let mut counter = 0;
+ let result = loop {
+	 if counter == 10 {
+		 break counter * 2;
+	 }
+	 counter += 1;
+ };
+ 'The result is '.print();
+ result.print(); 
+}
+
+**// Collection**
+use Felt252DictTrait;
+fn main() {
+ let mut balances: Felt252Dict<u64> = Default::default();
+ balances.insert('Alex', 100);
+ balances.insert('Maria', 200);
+ let alex_balance = balances.get('Alex');
+ assert(alex_balance == 100, 'Balance is not 100');
+ let maria_balance = balances.get('Maria');
+ assert(maria_balance == 200, 'Balance is not 200'); 
+}
+
+**// Turning an Array into span**
+let span = array.span();
+```
+
+Data types
+
+<aside>
+➡️ Arithmetic on felt252 is done mod p with p = 2251 + 17 ∗ 2192 + 1 
+→ **Division doesn't work as you might expect**
+
+</aside>
+
+| Type | Size |
+| --- | --- |
+| u8 | 8bits |
+| u16 | 16 bits |
+| … | … |
+| u256 | 256 bits |
+| usize | 32 bits |
+
+ps :
+
+- u256 is implemented as a struct
+- Booleans are one felt252 in size
